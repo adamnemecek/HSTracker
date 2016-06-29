@@ -301,13 +301,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }*/
 
         let events = [
-            "show_player_tracker": #selector(AppDelegate.showPlayerTracker(_:)),
-            "show_opponent_tracker": #selector(AppDelegate.showOpponentTracker(_:)),
-            "reload_decks": #selector(AppDelegate.reloadDecks(_:)),
-            "hstracker_language": #selector(AppDelegate.languageChange(_:)),
-            "show_floating_card": #selector(AppDelegate.showFloatingCard(_:)),
-            "hide_floating_card": #selector(AppDelegate.hideFloatingCard(_:)),
-            "theme": #selector(AppDelegate.reloadTheme(_:))
+            "show_player_tracker": #selector(showPlayerTracker),
+            "show_opponent_tracker": #selector(showOpponentTracker),
+            "reload_decks": #selector(reloadDecks),
+            "hstracker_language": #selector(languageChange),
+            "show_floating_card": #selector(showFloatingCard),
+            "hide_floating_card": #selector(hideFloatingCard),
+            "theme": #selector(reloadTheme)
         ]
 
         for (event, selector) in events {
@@ -545,7 +545,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             closeRequestTimer = NSTimer.scheduledTimerWithTimeInterval(
                 3,
                 target: self,
-                selector: #selector(AppDelegate.forceHideFloatingCard),
+                selector: #selector(forceHideFloatingCard),
                 userInfo: nil,
                 repeats: false)
 
@@ -608,26 +608,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let deckMenu = mainMenu?.itemWithTitle(NSLocalizedString("Decks", comment: ""))
         deckMenu?.submenu?.removeAllItems()
         deckMenu?.submenu?.addItemWithTitle(NSLocalizedString("Deck Manager", comment: ""),
-                                            action: #selector(AppDelegate.openDeckManager(_:)),
+                                            action: #selector(openDeckManager),
                                             keyEquivalent: "d")
         deckMenu?.submenu?.addItemWithTitle(NSLocalizedString("Reset", comment: ""),
-                                            action: #selector(AppDelegate.resetTrackers(_:)),
+                                            action: #selector(resetTrackers),
                                             keyEquivalent: "r")
         let saveMenus = NSMenu()
         saveMenus.addItemWithTitle(NSLocalizedString("Save Current Deck", comment: ""),
-                                   action: #selector(AppDelegate.saveCurrentDeck(_:)),
+                                   action: #selector(saveCurrentDeck),
                                    keyEquivalent: "")?.tag = 2
         saveMenus.addItemWithTitle(NSLocalizedString("Save Opponent's Deck", comment: ""),
-                                   action: #selector(AppDelegate.saveCurrentDeck(_:)),
+                                   action: #selector(saveCurrentDeck),
                                    keyEquivalent: "")?.tag = 1
         saveMenus.addItemWithTitle(NSLocalizedString("Save Arena Deck", comment: ""),
-                                   action: #selector(AppDelegate.saveArenaDeck(_:)),
+                                   action: #selector(saveArenaDeck),
                                    keyEquivalent: "")
         deckMenu?.submenu?.addItemWithTitle(NSLocalizedString("Save", comment: ""),
                                             action: nil,
                                             keyEquivalent: "")?.submenu = saveMenus
         deckMenu?.submenu?.addItemWithTitle(NSLocalizedString("Clear", comment: ""),
-                                            action: #selector(AppDelegate.clearTrackers(_:)),
+                                            action: #selector(clearTrackers),
                                             keyEquivalent: "R")
 
         deckMenu?.submenu?.addItem(NSMenuItem.separatorItem())
@@ -642,7 +642,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     .sort({$0.name!.lowercaseString < $1.name!.lowercaseString })
                     .forEach({
                     if let item = classMenu.addItemWithTitle($0.name!,
-                        action: #selector(AppDelegate.playDeck(_:)),
+                        action: #selector(playDeck),
                         keyEquivalent: "") {
                         item.representedObject = $0
                     }

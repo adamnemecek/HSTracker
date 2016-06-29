@@ -39,33 +39,33 @@ class Tracker: NSWindowController {
 
         let center = NSNotificationCenter.defaultCenter()
         var observers = [
-            "hearthstone_running": #selector(Tracker.hearthstoneRunning(_:)),
-            "hearthstone_active": #selector(Tracker.hearthstoneActive(_:)),
-            "tracker_opacity": #selector(Tracker.opacityChange(_:)),
-            "card_size": #selector(Tracker.cardSizeChange(_:)),
-            "window_locked": #selector(Tracker.windowLockedChange(_:)),
-            "auto_position_trackers": #selector(Tracker.autoPositionTrackersChange(_:))
+            "hearthstone_running": #selector(hearthstoneRunning),
+            "hearthstone_active": #selector(hearthstoneActive),
+            "tracker_opacity": #selector(opacityChange),
+            "card_size": #selector(cardSizeChange),
+            "window_locked": #selector(windowLockedChange),
+            "auto_position_trackers": #selector(autoPositionTrackersChange)
         ]
         if playerType == .Player {
             observers.update([
-                "player_draw_chance": #selector(Tracker.playerOptionFrameChange(_:)),
-                "player_card_count": #selector(Tracker.playerOptionFrameChange(_:)),
-                "player_cthun_frame": #selector(Tracker.playerOptionFrameChange(_:)),
-                "player_yogg_frame": #selector(Tracker.playerOptionFrameChange(_:)),
-                "player_deathrattle_frame": #selector(Tracker.playerOptionFrameChange(_:)),
-                "show_win_loss_ratio": #selector(Tracker.playerOptionFrameChange(_:)),
-                "reload_decks": #selector(Tracker.playerOptionFrameChange(_:)),
-                "player_in_hand_color": #selector(Tracker.playerOptionFrameChange(_:)),
-                "show_deck_name": #selector(Tracker.playerOptionFrameChange(_:))
+                "player_draw_chance": #selector(playerOptionFrameChange),
+                "player_card_count": #selector(playerOptionFrameChange),
+                "player_cthun_frame": #selector(playerOptionFrameChange),
+                "player_yogg_frame": #selector(playerOptionFrameChange),
+                "player_deathrattle_frame": #selector(playerOptionFrameChange),
+                "show_win_loss_ratio": #selector(playerOptionFrameChange),
+                "reload_decks": #selector(playerOptionFrameChange),
+                "player_in_hand_color": #selector(playerOptionFrameChange),
+                "show_deck_name": #selector(playerOptionFrameChange)
                 ])
         } else if playerType == .Opponent {
             observers.update([
-                "opponent_card_count": #selector(Tracker.opponentOptionFrameChange(_:)),
-                "opponent_draw_chance": #selector(Tracker.opponentOptionFrameChange(_:)),
-                "opponent_cthun_frame": #selector(Tracker.opponentOptionFrameChange(_:)),
-                "opponent_yogg_frame": #selector(Tracker.opponentOptionFrameChange(_:)),
-                "opponent_deathrattle_frame": #selector(Tracker.opponentOptionFrameChange(_:)),
-                "show_opponent_class": #selector(Tracker.opponentOptionFrameChange(_:))
+                "opponent_card_count": #selector(opponentOptionFrameChange),
+                "opponent_draw_chance": #selector(opponentOptionFrameChange),
+                "opponent_cthun_frame": #selector(opponentOptionFrameChange),
+                "opponent_yogg_frame": #selector(opponentOptionFrameChange),
+                "opponent_deathrattle_frame": #selector(opponentOptionFrameChange),
+                "show_opponent_class": #selector(opponentOptionFrameChange)
                 ])
         }
 
@@ -82,7 +82,7 @@ class Tracker: NSWindowController {
             "highlight_discarded", "show_player_get"]
         for option in options {
             center.addObserver(self,
-                               selector: #selector(Tracker.trackerOptionsChange(_:)),
+                               selector: #selector(trackerOptionsChange),
                                name: option,
                                object: nil)
         }
@@ -91,7 +91,7 @@ class Tracker: NSWindowController {
                        "opponent_card_count", "opponent_draw_chance"]
         for name in frames {
             center.addObserver(self,
-                               selector: #selector(Tracker.frameOptionsChange(_:)),
+                               selector: #selector(frameOptionsChange),
                                name: name,
                                object: nil)
         }

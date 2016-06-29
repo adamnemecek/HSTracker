@@ -93,13 +93,13 @@ class DeckManager: NSWindowController {
 
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(DeckManager.updateStatsLabel),
+                         selector: #selector(updateStatsLabel),
                          name: "reload_decks",
                          object: nil)
 
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(DeckManager.updateTheme(_:)),
+                         selector: #selector(updateTheme),
                          name: "theme",
                          object: nil)
     }
@@ -432,7 +432,7 @@ class DeckManager: NSWindowController {
         
         for criteria in criterias {
             let popupMenuItem = NSMenuItem(title: NSLocalizedString(criteria, comment: ""),
-                action: #selector(DeckManager.changeSort(_:)),
+                action: #selector(changeSort),
                 keyEquivalent: "")
             popupMenuItem.representedObject = criteria
             popupMenu.addItem(popupMenuItem)
@@ -442,7 +442,7 @@ class DeckManager: NSWindowController {
         
         for order in orders {
             let popupMenuItem = NSMenuItem(title: NSLocalizedString(order, comment: ""),
-                                           action: #selector(DeckManager.changeSort(_:)),
+                                           action: #selector(changeSort),
                                            keyEquivalent: "")
             popupMenuItem.representedObject = order
             popupMenu.addItem(popupMenuItem)
@@ -452,7 +452,7 @@ class DeckManager: NSWindowController {
         popupMenu.itemWithTitle(NSLocalizedString(sortOrder, comment: ""))?.state = NSOnState
         
         let firstItemMenu = NSMenuItem(title: NSLocalizedString(sortCriteria, comment: ""),
-                                       action: #selector(DeckManager.changeSort(_:)),
+                                       action: #selector(changeSort),
                                        keyEquivalent: "")
         firstItemMenu.representedObject = sortCriteria
         popupMenu.insertItem(firstItemMenu, atIndex: 0)

@@ -37,7 +37,7 @@ class CardHudContainer: NSWindowController {
         
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(BoardDamage.hearthstoneActive(_:)),
+                         selector: #selector(hearthstoneActive),
                          name: "hearthstone_active",
                          object: nil)
     }

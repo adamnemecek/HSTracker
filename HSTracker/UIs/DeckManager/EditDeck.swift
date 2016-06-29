@@ -112,12 +112,12 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
 
         if let cell = searchField.cell as? NSSearchFieldCell {
             cell.cancelButtonCell!.target = self
-            cell.cancelButtonCell!.action = #selector(EditDeck.cancelSearch(_:))
+            cell.cancelButtonCell!.action = #selector(cancelSearch)
         }
 
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(EditDeck.updateTheme(_:)),
+                         selector: #selector(updateTheme),
                          name: "theme",
                          object: nil)
 
@@ -247,7 +247,7 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
     func undoCardAdd(card: AnyObject) {
         if let c = card as? Card {
             deckUndoManager?.registerUndoWithTarget(
-                self, selector: #selector(EditDeck.redoCardAdd(_:)), object: card)
+                self, selector: #selector(redoCardAdd), object: card)
             
             if deckUndoManager?.undoing == true {
                 deckUndoManager?.setActionName(NSLocalizedString("Add Card", comment: ""))
@@ -267,7 +267,7 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
     func redoCardAdd(card: AnyObject) {
         if let c = card as? Card {
             deckUndoManager?.registerUndoWithTarget(
-                self, selector: #selector(EditDeck.undoCardAdd(_:)), object: card)
+                self, selector: #selector(undoCardAdd), object: card)
             
             if deckUndoManager?.undoing == true {
                 deckUndoManager?.setActionName(NSLocalizedString("Remove Card", comment: ""))
@@ -312,7 +312,7 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
         let popupMenu = NSMenu()
         for set in CardSet.deckManagerValidCardSets() {
             let popupMenuItem = NSMenuItem(title: NSLocalizedString(set.rawValue, comment: ""),
-                                           action: #selector(EditDeck.changeSet(_:)),
+                                           action: #selector(changeSet),
                                            keyEquivalent: "")
             popupMenuItem.representedObject = set.rawValue
             popupMenuItem.image = NSImage(named: "Set_\(set)")
@@ -343,7 +343,7 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
         let popupMenu = NSMenu()
         for cardType in Database.deckManagerCardTypes {
             let popupMenuItem = NSMenuItem(title: NSLocalizedString(cardType, comment: ""),
-                                           action: #selector(EditDeck.changeCardType(_:)),
+                                           action: #selector(changeCardType),
                                            keyEquivalent: "")
             popupMenuItem.representedObject = cardType
             popupMenu.addItem(popupMenuItem)
@@ -366,14 +366,14 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
     private func loadRaces() {
         let popupMenu = NSMenu()
         let popupMenuItem = NSMenuItem(title: NSLocalizedString("all_races", comment: ""),
-                                       action: #selector(EditDeck.changeRace(_:)),
+                                       action: #selector(changeRace),
                                        keyEquivalent: "")
         popupMenuItem.representedObject = "all"
         popupMenu.addItem(popupMenuItem)
 
         for race in Database.deckManagerRaces {
             let popupMenuItem = NSMenuItem(title: NSLocalizedString(race, comment: ""),
-                                           action: #selector(EditDeck.changeRace(_:)),
+                                           action: #selector(changeRace),
                                            keyEquivalent: "")
             popupMenuItem.representedObject = race
             popupMenu.addItem(popupMenuItem)
@@ -396,14 +396,14 @@ class EditDeck: NSWindowController, NSComboBoxDataSource, NSComboBoxDelegate {
     private func loadRarities() {
         let popupMenu = NSMenu()
         let popupMenuItem = NSMenuItem(title: NSLocalizedString("all_rarities", comment: ""),
-                                       action: #selector(EditDeck.changeRarity(_:)),
+                                       action: #selector(changeRarity),
                                        keyEquivalent: "")
         popupMenuItem.representedObject = "all"
         popupMenu.addItem(popupMenuItem)
 
         for rarity in Rarity.allValues() {
             let popupMenuItem = NSMenuItem(title: "",
-                                           action: #selector(EditDeck.changeRarity(_:)),
+                                           action: #selector(changeRarity),
                                            keyEquivalent: "")
             popupMenuItem.representedObject = rarity.rawValue
             let gemName = rarity == .Free ? "gem" : "gem_\(rarity.rawValue)"

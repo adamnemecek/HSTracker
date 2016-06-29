@@ -193,11 +193,11 @@ final class Hearthstone: NSObject {
         let notificationCenter = NSWorkspace.sharedWorkspace().notificationCenter
         let notifications = [
             // swiftlint:disable line_length
-            NSWorkspaceActiveSpaceDidChangeNotification: #selector(Hearthstone.spaceChange(_:)),
-            NSWorkspaceDidLaunchApplicationNotification: #selector(Hearthstone.appLaunched(_:)),
-            NSWorkspaceDidTerminateApplicationNotification: #selector(Hearthstone.appTerminated(_:)),
-            NSWorkspaceDidActivateApplicationNotification: #selector(Hearthstone.appActivated(_:)),
-            NSWorkspaceDidDeactivateApplicationNotification: #selector(Hearthstone.appDeactivated(_:)),
+            NSWorkspaceActiveSpaceDidChangeNotification: #selector(spaceChange),
+            NSWorkspaceDidLaunchApplicationNotification: #selector(appLaunched),
+            NSWorkspaceDidTerminateApplicationNotification: #selector(appTerminated),
+            NSWorkspaceDidActivateApplicationNotification: #selector(appActivated),
+            NSWorkspaceDidDeactivateApplicationNotification: #selector(appDeactivated),
             // swiftlint:enable line_length
         ]
         for (name, selector) in notifications {

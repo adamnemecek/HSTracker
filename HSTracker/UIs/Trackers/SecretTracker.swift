@@ -55,12 +55,12 @@ class SecretTracker: NSWindowController {
 
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(SecretTracker.hearthstoneActive(_:)),
+                         selector: #selector(hearthstoneActive),
                          name: "hearthstone_active",
                          object: nil)
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(SecretTracker.updateTheme(_:)),
+                         selector: #selector(updateTheme),
                          name: "theme",
                          object: nil)
     }

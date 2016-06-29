@@ -48,7 +48,7 @@ class TimerHud: NSWindowController {
 
         NSNotificationCenter.defaultCenter()
             .addObserver(self,
-                         selector: #selector(TimerHud.hearthstoneActive(_:)),
+                         selector: #selector(hearthstoneActive),
                          name: "hearthstone_active",
                          object: nil)
     }
